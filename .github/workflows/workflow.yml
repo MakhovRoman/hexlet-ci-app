@@ -3,13 +3,23 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
     steps:
       - name: clone
         uses: actions/checkout@v4
 
-      - name: setup
-        run: make setup
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: install
+        run: make install
 
       - name: test
         run: make test
@@ -17,3 +27,5 @@ jobs:
       - name: lint
         run: make lint
 
+      - name: hexlet
+        uses: hexlet-components/hello-from-hexlet-action@release
