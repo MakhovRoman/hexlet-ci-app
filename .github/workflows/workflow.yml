@@ -3,16 +3,17 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
+    
     steps:
       - name: clone
         uses: actions/checkout@v4
 
       - name: setup
-        uses: make setup
+        run: make setup
 
       - name: test
-        uses: make test
+        run: make test
 
       - name: lint
-        uses: make lint
+        run: make lint
 
